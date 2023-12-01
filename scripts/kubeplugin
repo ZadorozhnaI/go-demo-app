@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# chmod +x kubeplugin
+# sudo cp kubeplugin /usr/local/bin/
+# kubectl kubeplugin <namespaces>
+
 # Ensure correct number of arguments is provided
 if [ "$#" -ne 1 ]; then
   echo "Usage: $0 <namespace>"
