@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# Ensure correct number of arguments is provided
+if [ "$#" -ne 1 ]; then
+  echo "Usage: $0 <namespace>"
+  exit 1
+fi
+
+RESOURCE_TYPE="pod"  # Default resource type
+
+# Retrieve resource usage statistics from Kubernetes
+kubectl get "$kubectl $2 $RESOURCE_TYPE -n $1 | tail -n +2 | while read line
+do
+  # Extract CPU and memory usage from the output
+  NAME=$(echo "$line" | awk '{print $1}')
+  CPU=$(echo "$line" | awk '{print $2}')
+  MEMORY=$(echo "$line" | awk '{print $3}')
+
+  # Output the statistics to the console
+  echo "$RESOURCE_TYPE, $1, $NAME, $CPU, $MEMORY"
+done
